@@ -9,7 +9,10 @@ class Config:
 
     def get_bing_api_key(self):
         return self.config["API_KEYS"]["BING"]
-    
+
+    def show_api_log(self):
+        return self.config["TERMINAL"]["SHOW_API_LOG"]
+
     def get_bing_api_endpoint(self):
         return self.config["API_ENDPOINTS"]["BING"]
     
