@@ -9,7 +9,7 @@ class Logger:
     def __init__(self):
         config = Config()
         logs_dir = config.get_logs_dir()
-        self.logger = LogInit(pathName=logs_dir + "/devika_agent.log", console=True if config.show_terminal_log() == "True" else False, colors=True)
+        self.logger = LogInit(pathName=logs_dir + "/devika_agent.log", console=True if config.show_api_log() == "True" else False, colors=True)
 
     def read_log_file(self) -> str:
         with open(self.logger.pathName, "r") as file:
