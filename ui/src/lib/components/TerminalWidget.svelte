@@ -1,24 +1,22 @@
 <script>
   import { onMount } from "svelte";
+  import { Terminal } from "xterm";
   import "xterm/css/xterm.css";
+  import { FitAddon } from "xterm-addon-fit";
   import { agentState } from "$lib/store";
 
   let terminalElement;
   let terminal;
   let fitAddon;
 
-  onMount(async () => {
-    let xterm = await import('xterm');
-    let xtermAddonFit = await('xterm-addon-fit')
-
-    terminal = new xterm.Terminal({
+  onMount(() => {
+    terminal = new Terminal({
       disableStdin: true,
       cursorBlink: true,
       convertEol: true,
       rows: 1,
     });
-    
-    fitAddon = new xtermAddonFit.FitAddon();
+    fitAddon = new FitAddon();
     terminal.loadAddon(fitAddon);
     terminal.open(terminalElement);
     fitAddon.fit();
