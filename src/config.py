@@ -7,6 +7,9 @@ class Config:
     def get_config(self):
         return self.config
 
+    def get_search_engine(self):
+        return self.config["SEARCH_ENGINE"]["ENGINE_NAME"]
+
     def get_bing_api_key(self):
         return self.config["API_KEYS"]["BING"]
 
@@ -16,12 +19,24 @@ class Config:
     def get_bing_api_endpoint(self):
         return self.config["API_ENDPOINTS"]["BING"]
     
+    def get_google_search_api_key(self):
+        return self.config["GOOGLE"]["GOOGLE_SEARCH"]
+
+    def get_google_search_engine_id(self):
+        return self.config["GOOGLE"]["GOOGLE_SEARCH_ENGINE_ID"]
+
+    def get_google_search_api_endpoint(self):
+        return self.config["API_ENDPOINTS"]["GOOGLE_SEARCH"]
+    
     def get_claude_api_key(self):
         return self.config["API_KEYS"]["CLAUDE"]
     
     def get_openai_api_key(self):
         return self.config["API_KEYS"]["OPENAI"]
     
+    def get_gemini_api_key(self):
+        return self.config["API_KEYS"]["GEMINI"]
+
     def get_azure_openai_api_key(self):
         return self.config["API_KEYS"]["AZURE_OPENAI"]
     
@@ -58,12 +73,28 @@ class Config:
     def get_repos_dir(self):
         return self.config["STORAGE"]["REPOS_DIR"]
     
+    def set_search_engine(self, name):
+        self.config["SEARCH_ENGINE"]["ENGINE_NAME"] = name
+        self.save_config()
+    
     def set_bing_api_key(self, key):
         self.config["API_KEYS"]["BING"] = key
         self.save_config()
 
     def set_bing_api_endpoint(self, endpoint):
         self.config["API_ENDPOINTS"]["BING"] = endpoint
+        self.save_config()
+    
+    def set_google_search_api_key(self, key):
+        self.config["GOOGLE"]["GOOGLE_SEARCH"] = key
+        self.save_config()
+
+    def set_google_search_engine_id(self, key):
+        self.config["GOOGLE"]["GOOGLE_SEARCH_ENGINE_ID"] = key
+        self.save_config()
+
+    def set_google_search_api_endpoint(self, endpoint):
+        self.config["API_ENDPOINTS"]["GOOGLE_SEARCH"] = endpoint
         self.save_config()
         
     def set_claude_api_key(self, key):
@@ -72,6 +103,10 @@ class Config:
 
     def set_openai_api_key(self, key):
         self.config["API_KEYS"]["OPENAI"] = key
+        self.save_config()
+
+    def set_gemini_api_key(self, key):
+        self.config["API_KEYS"]["GEMINI"] = key
         self.save_config()
 
     def set_azure_openai_api_key(self, key):

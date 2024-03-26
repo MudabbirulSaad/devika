@@ -11,13 +11,14 @@ from .patcher import Patcher
 from .reporter import Reporter
 from .decision import Decision
 
+from src.config import Config
 from src.logger import Logger
 from src.project import ProjectManager
 from src.state import AgentState
 
 from src.bert.sentence import SentenceBert
 from src.memory import KnowledgeBase
-from src.browser.search import BingSearch
+from src.browser.search import BingSearch, DuckDuckGoSearch, GoogleSearch
 from src.browser import Browser
 from src.browser import start_interaction
 from src.filesystem import ReadCode
@@ -63,7 +64,17 @@ class Agent:
         results = {}
         
         knowledge_base = KnowledgeBase()
-        bing_search = BingSearch()
+        engine = str(Config().get_search_engine()).lower()
+        if engine == "google":
+            web_search = GoogleSearch()
+        elif engine == "bing":
+            web_search = BingSearch()
+        elif engine == "duckduckgo":
+            web_search = DuckDuckGoSearch()
+        else:
+            raise ValueError(f"Engine {engine} not supported")
+            exit()
+
         browser = Browser()
 
         for query in queries:
@@ -80,8 +91,8 @@ class Agent:
             """
             Search for the query and get the first link
             """
-            bing_search.search(query)
-            link = bing_search.get_first_link()
+            web_search.search(query)
+            link = web_search.get_first_link()
 
             """
             Browse to the link and take a screenshot, then extract the text

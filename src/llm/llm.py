@@ -5,6 +5,7 @@ from .claude_client import Claude
 from .openai_client import OpenAI
 from .groq_client import Groq
 from .azure_openai_client import AzureOpenAI
+from .gemini_client import Gemini
 
 from src.state import AgentState
 
@@ -19,6 +20,8 @@ class Model(Enum):
     GPT_4_TURBO = ("GPT-4 Turbo", "gpt-4-0125-preview")
     GPT_3_5 = ("GPT-3.5", "gpt-3.5-turbo-0125")
     AZURE_AI = ("AZURE", "gpt-3.5-turbo-0125")
+    GEMINI_1_0_PRO = ("Gemini 1.0 Pro", "gemini-1.0-pro")
+    GEMINI_1_5_PRO = ("Gemini 1.5 Pro", "gemini-1.5-pro")
     OLLAMA_MODELS = [
         (
             model["name"].split(":")[0],
@@ -64,6 +67,8 @@ class LLM:
             response = Groq().inference(self.model_id, prompt).strip()
         elif "AZURE" in str(model):
             response = AzureOpenAI().inference(prompt).strip()
+        elif "GEMINI" in str(model):
+            response = Gemini().inference(self.model_id, prompt).strip()
         else:
             raise ValueError(f"Model {model} not supported")
 
